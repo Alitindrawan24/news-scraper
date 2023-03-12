@@ -7,10 +7,13 @@ const cheerio = require("cheerio");
 const https = require("https");
 
 async function getData(url) {
-    const agent = new https.Agent({
-        rejectUnauthorized: false
+    https.globalAgent.options.rejectUnauthorized = false;
+    const instance = axios.create({
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        })
     });
-    let response = await axios.get(url, { httpsAgent: agent })
+    let response = await instance.get(url)
     let $ = cheerio.load(response.data)
 
     let title = getTitle($)

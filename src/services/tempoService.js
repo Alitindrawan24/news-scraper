@@ -4,9 +4,16 @@ moment.locale('id');
 
 const axios = require("axios");
 const cheerio = require("cheerio");
+const https = require("https");
 
 async function getData(url) {
-    let response = await axios.get(url)
+    https.globalAgent.options.rejectUnauthorized = false;
+    const instance = axios.create({
+        httpsAgent: new https.Agent({
+            rejectUnauthorized: false
+        })
+    });
+    let response = await instance.get(url)
     let $ = cheerio.load(response.data)
 
     let title = getTitle($)
@@ -20,7 +27,7 @@ async function getData(url) {
         pageCount = parseInt(pageCount.charAt(pageCount.length - 1))
         while (true) {
             const pageUrl = url + '?page=' + page
-            response = await axios.get(pageUrl)
+            response = await instance.get(pageUrl)
             $ = cheerio.load(response.data)
             content = content + getContent($)
             page++

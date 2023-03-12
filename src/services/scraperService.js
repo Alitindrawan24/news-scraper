@@ -66,7 +66,7 @@ async function handle(url, media) {
         };
 
     } catch (error) {
-        throw new Error("Service error : " + error.message)
+        throw new Error("Service error : " + error.stack)
     }
 
     return result

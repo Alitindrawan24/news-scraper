@@ -7,6 +7,7 @@ const cheerio = require("cheerio");
 const https = require("https");
 
 async function getData(url) {
+    https.globalAgent.options.rejectUnauthorized = false;
     const instance = axios.create({
         httpsAgent: new https.Agent({
             rejectUnauthorized: false

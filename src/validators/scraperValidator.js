@@ -1,5 +1,5 @@
 const listOfMedia = {
-    "tribunnews": 'https://www.tribunnews.com',
+    "tribunnews": 'tribunnews.com',
     "detik": 'detik.com/',
     "kompas": 'kompas.com/',
     "liputan": 'liputan6.com/',

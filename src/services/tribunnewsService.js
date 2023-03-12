@@ -4,6 +4,7 @@ moment.locale('id');
 
 const axios = require("axios");
 const cheerio = require("cheerio");
+const https = require('https');
 
 async function getData(url) {
     const agent = new https.Agent({

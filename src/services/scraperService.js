@@ -53,7 +53,7 @@ async function handle(url, media) {
                 service = kontanService
                 break
             default:
-                throw new Error("Media is not supported")
+                throw new Error(`Media ${media} is not supported`)
         }
 
         [title, content, time] = await service.getData(url)

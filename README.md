@@ -22,6 +22,8 @@ News Scraper is a very simple web application built with Node JS that allows use
 
 ## Tech
 - Node JS (Node v18 or above)
+
+## Package/Frameworks
 - Express JS (v4.18)
 
 ## Getting Started

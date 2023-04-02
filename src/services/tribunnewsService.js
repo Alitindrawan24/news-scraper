@@ -40,7 +40,7 @@ async function getData(url) {
 }
 
 function getTime($) {
-    let time = $("div.mt10 time");
+    let time = $("div time");
     let theTime = time.text().replace(" WIB", "");
     let newTime = moment(theTime, 'dddd, DD MMMM YYYY hh:mm').format(format.timeFormat())
 

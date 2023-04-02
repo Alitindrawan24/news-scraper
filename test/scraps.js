@@ -114,7 +114,7 @@ describe('Scraps', () => {
 
     describe('/POST scraps jawapos', () => {
         let params = {
-            "url": "https://www.jawapos.com/jpg-today/05/03/2023/jokowi-tiba-di-bandung-resmikan-empat-proyek-infrastruktur/"
+            "url": "https://www.jawapos.com/berita-sekitar-anda/01440276/jokowi-tiba-di-bandung-resmikan-empat-proyek-infrastruktur"
         }
 
         it('it should Scrap the jawapos news', (done) => {

@@ -40,35 +40,27 @@ async function getData(url) {
 }
 
 function getTime($) {
-    let time = $(".date");
+    let time = $(".entry-date");
     let theTime = time.text().replace(" WIB", "");
-    let newTime = moment(theTime, 'dddd, DD MMMM YYYY hh:mm').format(format.timeFormat())
+    let newTime = moment(theTime, 'DD MMMM YYYY hh:mm').format(format.timeFormat())
 
     return (newTime != "Invalid date") ? newTime : theTime
 }
 
 function getTitle($) {
-    return $(".detail-title h1.title").text().replaceAll("\n", "").replaceAll(' ', " ").trim()
+    return $(".tdb-title-text").text().replaceAll("\n", "").replaceAll(' ', " ").trim()
 }
 
 function getContent($) {
-    let content = $("#isi");
+    let content = $(".tdi_91");
     $("script", content).remove();
-    $("div.banner728", content).remove();
-    $("div.bacajuga", content).remove();
-    $("div.parallax-box", content).remove();
+    $("style", content).remove();
 
     content = content.text()
 
-    let readTooLength = $(".bacajuga").length;
-    for (let i = 0; i < readTooLength; i++) {
-        let readToo = $(".bacajuga").eq(i).text();
-        content = content.replace(readToo, "").trim()
-    }
-
     // remove text Baca juga
-    while (content.search("Baca Juga") != -1) {
-        let index = content.indexOf("Baca Juga")
+    while (content.search("Baca juga") != -1) {
+        let index = content.indexOf("Baca juga")
         let textCut = ''
 
         while (index < content.length) {
@@ -83,11 +75,10 @@ function getContent($) {
         content = content.replace(textCut, "").trim()
     }
 
-    content = content.replace("TEMPO.CO, ", "").trim()
+    content = content.replaceAll("radarbali.id–", "").trim()
     content = content.replaceAll("\n", " ").trim()
     content = content.replaceAll("\t", " ").trim()
     content = content.replaceAll(' ', " ").trim()
-        // content = content.replaceAll('\"', "'").trim()
 
     return content
 }

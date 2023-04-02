@@ -40,7 +40,7 @@ async function getData(url) {
 }
 
 function getTime($) {
-    let time = $(".time");
+    let time = $(".read__info__date");
     let theTime = time.text().replace(" WIB", "");
     let newTime = moment(theTime, 'DD MMMM YYYY hh:mm').format(format.timeFormat())
 
@@ -48,11 +48,11 @@ function getTime($) {
 }
 
 function getTitle($) {
-    return $(".single-header .single-title").text().replaceAll("\n", "").replaceAll(' ', " ").trim()
+    return $(".read__title").text().replaceAll("\n", "").replaceAll(' ', " ").trim()
 }
 
 function getContent($) {
-    let content = $(".content");
+    let content = $(".read__content");
     $("script", content).remove();
 
     content = content.text()

@@ -54,6 +54,7 @@ function getTitle($) {
 function getContent($) {
     let content = $(".read__content");
     $("script", content).remove();
+    $("strong", content).remove();
 
     content = content.text()
 
@@ -65,23 +66,6 @@ function getContent($) {
 
     let caption = $(".photo__caption").text();
     content = content.replaceAll(caption, "").trim()
-
-    // remove text Baca juga
-    while (content.search("Baca juga") != -1) {
-        let index = content.indexOf("Baca juga")
-        let textCut = ''
-
-        while (index < content.length) {
-            if (content[index] == "\n") {
-                break
-            }
-
-            textCut += content[index]
-            index++
-        }
-
-        content = content.replace(textCut, "").trim()
-    }
 
     content = content.replaceAll("KOMPAS.com - ", "").trim()
 

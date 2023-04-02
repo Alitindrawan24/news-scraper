@@ -6,6 +6,7 @@ const listOfMedia = {
     "tempo": 'tempo.co/',
     "suara": 'suara.com/',
     "jawapos": 'jawapos.com/',
+    "radarbali-jawapos": 'radarbali.jawapos.com/',
     "balipost": 'balipost.com/',
     "merdeka": 'merdeka.com/',
     "okezone": 'okezone.com/',

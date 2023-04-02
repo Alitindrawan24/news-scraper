@@ -5,6 +5,7 @@ const liputanService = require('../services/liputanService');
 const tempoService = require('../services/tempoService');
 const suaraService = require('../services/suaraService');
 const jawaposService = require('../services/jawaposService');
+const radarbalijawaposService = require('../services/radarbalijawaposService');
 const balipostService = require('./balipostService');
 const merdekaService = require('./merdekaService');
 const okezoneService = require('./okezoneService');
@@ -36,6 +37,10 @@ async function handle(url, media) {
                 break
             case 'jawapos':
                 service = jawaposService
+                break
+            case 'radarbali-jawapos':
+                service = radarbalijawaposService
+                media = "jawapos"
                 break
             case 'balipost':
                 service = balipostService

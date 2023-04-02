@@ -76,7 +76,9 @@ function getContent($) {
     }
 
     content = content.replaceAll("TRIBUNNEWS.COM, ", "").trim()
+    content = content.replaceAll("TRIBUN-BALI.COM, ", "").trim()
 
+    content = content.replaceAll("  ", " ").trim()
     content = content.replaceAll("\n", " ").trim()
     content = content.replaceAll("\t", " ").trim()
     content = content.replaceAll(' ', " ").trim()

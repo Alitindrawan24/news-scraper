@@ -24,6 +24,7 @@ async function scrapTempo(topic) {
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Menggunakan Chromium yang diinstal
+            protocolTimeout: 300000
         });
         const page = await browser.newPage();
         console.log(`https://www.tempo.co/search?q=${encodeURIComponent(topic)}`)
@@ -63,6 +64,7 @@ async function scrapKompas(topic) {
             headless: true,
             args: ['--no-sandbox', '--disable-setuid-sandbox'],
             executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Menggunakan Chromium yang diinstal
+            protocolTimeout: 300000
         });
         const page = await browser.newPage();
         console.log(`https://search.kompas.com/search/?q=${encodeURIComponent(topic)}`)

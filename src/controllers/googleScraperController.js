@@ -1,6 +1,4 @@
 const puppeteer = require("puppeteer");
-const unirest = require("unirest")
-const cheerio = require("cheerio");
 
 async function index(req, res) {
     const { topic } = req.body;
@@ -22,7 +20,11 @@ async function index(req, res) {
 
 async function scrapTempo(topic) {
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Menggunakan Chromium yang diinstal
+        });
         const page = await browser.newPage();
         console.log(`https://www.tempo.co/search?q=${encodeURIComponent(topic)}`)
         await page.goto(
@@ -57,7 +59,11 @@ async function scrapTempo(topic) {
 
 async function scrapKompas(topic) {
     try {
-        const browser = await puppeteer.launch({ headless: true });
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+            executablePath: process.env.PUPPETEER_EXECUTABLE_PATH, // Menggunakan Chromium yang diinstal
+        });
         const page = await browser.newPage();
         console.log(`https://search.kompas.com/search/?q=${encodeURIComponent(topic)}`)
         await page.goto(

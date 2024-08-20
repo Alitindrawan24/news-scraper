@@ -8,5 +8,6 @@ services:
       - NODE_ENV=production
     volumes:
       - .:/app
+      - /app/node_modules
     stdin_open: true
     tty: true

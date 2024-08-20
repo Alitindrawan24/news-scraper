@@ -21,17 +21,6 @@ RUN apt-get update && apt-get install -y \
     libatk-bridge2.0-0 \
     libcups2 \
     libxss1 \
-    libxrandr2 \
-    libx11-xcb1 \
-    libxtst6 \
-    libpangocairo-1.0-0 \
-    libxcomposite1 \
-    libxdamage1 \
-    libxi6 \
-    libxtst6 \
-    libcups2 \
-    libnss3 \
-    libasound2 \
     fonts-liberation \
     libappindicator1 \
     lsb-release \
@@ -44,12 +33,17 @@ ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
     PUPPETEER_SKIP_DOWNLOAD=true \
     PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
 
-# Buat direktori kerja dan salin kode ke dalam container
+# Buat direktori kerja
 WORKDIR /app
-COPY . .
+
+# Salin file package.json dan package-lock.json terlebih dahulu
+COPY package*.json ./
 
 # Install dependencies proyek Node.js
 RUN npm install
+
+# Salin seluruh kode ke dalam container
+COPY . .
 
 # Expose port yang diperlukan
 EXPOSE 3000

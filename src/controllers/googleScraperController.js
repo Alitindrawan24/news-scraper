@@ -9,13 +9,15 @@ async function index(req, res) {
         return res.status(400).json({ error: "Topic is required" });
     }
 
-    const [result1] = await Promise.all([
+    const [result1,result2,result3] = await Promise.all([
         scrapTempo(topic),
+        scrapDetik(topic),
+        scrapBaliPost(topic),
         // scrapKompas(topic),
     ]);
 
     // Combine all results into a single array
-    const links = [...result1];
+    const links = [...result1,...result2,...result3];
 
     res.json({ links });
 }
@@ -50,9 +52,90 @@ async function scrapTempo(topic) {
             if (link) {
                 link = link.split("?")[0];
                 const linkLower = link.toLowerCase();
+
+                linkDomain = linkLower.split(".")[1]
+                isCorrectDomain = linkDomain == "tempo"
                 
                 // Check if the link contains any of the filtered topic words
-                if (filteredTopicWords.some(word => linkLower.includes(word))) {
+                if (filteredTopicWords.some(word => linkLower.includes(word) && isCorrectDomain)) {
+                    if (!links.includes(link)) {
+                        links.push(link);
+                    }
+                }
+            }
+        });
+
+        return links;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+async function scrapDetik(topic) {
+    try {
+        const stopwords = await loadStopwords('./stopwords.txt');
+        const filteredTopicWords = topic
+            .split(' ')
+            .map(word => word.toLowerCase())
+            .filter(word => !stopwords.has(word));
+
+        const url = `https://www.detik.com/search/searchall?query=${encodeURIComponent(topic)}`;
+        const { data } = await axios.get(url);
+
+        const $ = cheerio.load(data);
+        const links = [];
+
+        $('.media__title a').each((i, element) => {
+            let link = $(element).attr('href');
+            if (link) {
+                link = link.split("?")[0];
+                const linkLower = link.toLowerCase();
+
+                linkDomain = linkLower.split(".")[1]
+                isCorrectDomain = linkDomain == "detik"
+                
+                // Check if the link contains any of the filtered topic words
+                if (filteredTopicWords.some(word => linkLower.includes(word)) && isCorrectDomain) {
+                    if (!links.includes(link)) {
+                        links.push(link);
+                    }
+                }
+            }
+        });
+
+        return links;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+async function scrapBaliPost(topic) {
+    try {
+        const stopwords = await loadStopwords('./stopwords.txt');
+        const filteredTopicWords = topic
+            .split(' ')
+            .map(word => word.toLowerCase())
+            .filter(word => !stopwords.has(word));
+
+        const url = `https://www.balipost.com/search/${encodeURIComponent(topic)}`;
+        const { data } = await axios.get(url);
+
+        const $ = cheerio.load(data);
+        const links = [];
+
+        $('.entry-title a').each((i, element) => {
+            let link = $(element).attr('href');
+            if (link) {
+                link = link.split("?")[0];
+                const linkLower = link.toLowerCase();
+
+                linkDomain = linkLower.split(".")[1]
+                isCorrectDomain = linkDomain == "balipost"
+                
+                // Check if the link contains any of the filtered topic words
+                if (filteredTopicWords.some(word => linkLower.includes(word)) && isCorrectDomain) {
                     if (!links.includes(link)) {
                         links.push(link);
                     }
